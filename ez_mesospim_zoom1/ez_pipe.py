@@ -1,5 +1,5 @@
 """
-Simple module for an ez clear pipeline for 1x mesoSPIM stacks so they are in the same orientation
+Simple module for an EZ clear pipeline for 1x mesoSPIM stacks so they are in the same orientation
 as BrainSaw data. Then save a 25 micron downsampled stack.
 Run from directory with sample data in it. It will process everything in the folder.
 """
@@ -20,6 +20,47 @@ dsSub =  '025_micron'
 
 
 
+def list_stacks():
+    """
+    List to CLI all stacks in current folder. Display parameters useful for the
+    task of merging and cropping. Returns table as a structure
+
+    Inputs
+    none
+
+
+    Outputs
+    list of dictionaries containing the data.
+
+
+    Example
+    Can get the laser line used in each file name as follows
+
+    out = list_stacks()
+    [s['Laser'] for s  in out]
+    ['488 nm', '488 nm', '561 nm', '561 nm', '647 nm', '647 nm']
+
+    """
+    stacks=mesospim_python_tools.io.return_mesoSPIM_files_in_path(os.getcwd())
+
+    ind = 0
+
+
+    print('The current directory contains the following stacks:\n')
+    out = list()
+    for t_stack in stacks:
+        fname = t_stack['image_file_name']
+        shutter = t_stack['meta_data']['CFG']['Shutter']
+        laser = t_stack['meta_data']['CFG']['Laser']
+        zoom = t_stack['meta_data']['CFG']['Zoom']
+
+        print('%d. %s, %s, %s' % (ind, fname, shutter, laser))
+        ind += 1
+
+        out.append({'image_file_name': fname, 'Shutter': shutter,
+                    'Laser': laser, 'Zoom': zoom})
+
+    return out
 
 def crop_full_stacks(stacks,do_plot=False):
     """
@@ -30,7 +71,7 @@ def crop_full_stacks(stacks,do_plot=False):
     stacks : Takes as input the structure returned by
         mesospim_python_tools.io.return_mesoSPIM_files_in_path
 
-    We write to disk new stacks with 'cropped_' appended ot the file name.
+    We write to disk new stacks with 'cropped_' appended to the file name.
 
     """
 
