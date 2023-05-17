@@ -19,12 +19,16 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 
-[project.urls]
-homepage = "https://github.com/racampbell/EZ-mesoSPIM-zoom1"
-bug_tracker = "https://github.com/racampbell/EZ-mesoSPIM-zoom1/issues"
-documentation = "https://github.com/racampbell/EZ-mesoSPIM-zoom1"
-source_code = "https://github.com/racampbell/EZ-mesoSPIM-zoom1"
-user_support = "https://github.com/racampbell/EZ-mesoSPIM-zoom1/issues"
+
+dependencies = [
+  "scikit-image",
+  "matplotlib",
+  "numpy",
+  "scipy",
+  "mesospim_python_tools",
+  "SimpleITK-SimpleElastix",
+  "opencv-python"
+  ]
 
 [project.optional-dependencies]
 dev = [
