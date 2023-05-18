@@ -2,16 +2,16 @@
 
 
 The pipeline handles low-zoom mesoSPIM data acquired over multiple channels with left and right sheet separately.
-It registers one sheet image onto the other and then produces a blended image. 
+It registers one sheet image onto the other and then produces a blended image.
 
 
 
 
 
 ### One
-* Crop the full size images by generating downsampled stacks that are just reduced by a factor of 4. 
-* Finding crop boxes. 
-* Do this all in RAM. 
+* Crop the full size images by generating downsampled stacks that are just reduced by a factor of 4.
+* Finding crop boxes.
+* Do this all in RAM.
 * Save the cropped images.
 ```
 import mesospim_python_tools
@@ -39,9 +39,9 @@ Saving to crop_ECiBrain_LRtest_rightsideskew_Mag1x_Tile0_Ch488_Sh1_Rot0.tiff
 
 ### Two
 Note: if the sheets are well registered you can skip this step
-* Use the downsampled images from above to register one sheet to the other. 
-* Use the parameters to transform full size stack. 
-* Will have to double all numbers. 
+* Use the downsampled images from above to register one sheet to the other.
+* Use the parameters to transform full size stack.
+* Will have to double all numbers.
 
 ```
 #re-load the downsampled stacks from the cropped data
@@ -54,7 +54,7 @@ ez_pipe.apply_transformation(tranform_params)
 
 ### Three
 Blend and save blended image with coronal planes.
-Make 25 micron stack from the blended image. 
+Make 25 micron stack from the blended image.
 ```
 FINAL = ez_pipe.make_final_image(RES,stacks[1])
 ```
@@ -67,8 +67,4 @@ v = napari.view_image(FINAL)
 
 Once we have an elegant thing that does this, we need to generalise to multiple channels
 where the use defines which will be the background channel. So the above pipeline works
-on that then the other channels are passed through the already calculated params. 
-
-
-
-
+on that then the other channels are passed through the already calculated params.
