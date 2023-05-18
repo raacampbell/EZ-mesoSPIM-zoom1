@@ -68,4 +68,3 @@
 
 //SP: Param_A in each resolution level. a_k = a/(A+k+1)^alpha
 (SP_A 20.0 )
-
